@@ -6,17 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity {
+public class HiScoresActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_hi_scores);
     }
 
-    public void doPlay(View view) {
-        Intent gameStartActivity = new Intent(view.getContext(), GameStartActivity.class);
+    public void doPlayAgain(View view) {
 
-        startActivity(gameStartActivity);
+        finish();
     }
 }

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">CA3</string>
+    <string name="High_Scores">High Scores</string>
+    <string name="Play_Again">Play Again</string>
+    <string name="Text_View">TextView</string>
+    <string name="Play">Play</string>
 </resources>
