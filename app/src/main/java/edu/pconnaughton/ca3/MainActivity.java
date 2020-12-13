@@ -64,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
 
             final Intent gameStartActivity = new Intent(view.getContext(), GameStartActivity.class);
 
+            gameStartActivity.putExtra("sequence", sequence);
+
         handlerUI.postDelayed(new Runnable() {
             @Override
             public void run() {
