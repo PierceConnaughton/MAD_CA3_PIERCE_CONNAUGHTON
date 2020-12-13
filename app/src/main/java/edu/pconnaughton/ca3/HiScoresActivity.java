@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.app.ListActivity;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.w3c.dom.Comment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HiScoresActivity extends ListActivity {
@@ -70,21 +72,31 @@ public class HiScoresActivity extends ListActivity {
 
 
         for (HiScore hs : top5HiScores) {
+
             String log =
                     "Id: " + hs.getScore_id() +
                             ", Date: " + hs.getGame_date() +
                             " , Player: " + hs.getPlayer_name() +
                             " , Score: " + hs.getScore();
             // Writing HiScore to log
+
+
             Log.i("Score: ", log);
+
+
+
         }
 
+//        ArrayAdapter adapter = new ArrayAdapter<String>(this,
+//                R.layout.activity_hi_scores, logs);
+//
+//
+//       setListAdapter(adapter);
 
 
 
         ArrayAdapter<HiScore> adapter = new ArrayAdapter<HiScore>(this,
                 android.R.layout.simple_list_item_1, top5HiScores);
-
         setListAdapter(adapter);
     }
 
