@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -13,14 +14,18 @@ import java.util.ArrayList;
 public class GameStartActivity extends AppCompatActivity {
 
     Button btnOne, btnTwo, btnThree, btnFour;
-    int userNum,sequenceNum,userScore,lastNum;
+    int userNum,sequenceNum,userScore,lastNum,userRound;
 
     int[] usequence = new int[20];
+
+    TextView tvRound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_start);
+
+        tvRound = findViewById(R.id.tvRound);
 
         Intent intent = getIntent();
 
@@ -35,9 +40,12 @@ public class GameStartActivity extends AppCompatActivity {
         userScore = 0;
         sequenceNum = 0;
         lastNum = 0;
+        userRound = 0;
 
         userScore = getIntent().getIntExtra("userScore",0);
+        userRound = getIntent().getIntExtra("userRound",1);
 
+        tvRound.setText("Round " + userRound);
 
         System.out.println("========");
 
@@ -85,6 +93,8 @@ public class GameStartActivity extends AppCompatActivity {
 
             gameOverStartActivity.putExtra("userScore", userScore);
 
+            gameOverStartActivity.putExtra("userRound", userRound);
+
         startActivity(gameOverStartActivity);
 
             userScore = 0;
@@ -92,6 +102,20 @@ public class GameStartActivity extends AppCompatActivity {
         }
 
         sequenceNum++;
+        if(sequenceNum == 20 && userNum == usequence[19]) {
+            Toast.makeText(this,"Got all correct",Toast.LENGTH_SHORT).show();
+
+            Intent gameOverStartActivity = new Intent(view.getContext(), GameOverActivity.class);
+
+            gameOverStartActivity.putExtra("userScore", userScore);
+
+            gameOverStartActivity.putExtra("userRound", userRound);
+
+            startActivity(gameOverStartActivity);
+
+            userScore = 0;
+            finish();
+        }
 
         if(sequenceNum == lastNum && userNum == usequence[lastNum - 1]){
 
@@ -101,9 +125,13 @@ public class GameStartActivity extends AppCompatActivity {
 
             mainActivity.putExtra("sequence", usequence);
 
+            userRound++;
+
+            mainActivity.putExtra("userRound", userRound);
+
             startActivity(mainActivity);
 
-            Toast.makeText(this,"Got All 4 Correct",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Round Complete",Toast.LENGTH_SHORT).show();
             finish();
         }
 

@@ -9,7 +9,8 @@ import android.widget.TextView;
 
 public class GameOverActivity extends AppCompatActivity {
 
-    TextView tvUserScore;
+    TextView tvUserScore,tvRound;
+    int userScore,userRound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,12 +18,15 @@ public class GameOverActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_over);
 
         tvUserScore = findViewById(R.id.tvUserScore);
+        tvRound = findViewById(R.id.tvRound);
 
-        int uscore;
 
-        uscore = getIntent().getIntExtra("userScore",0);
 
-        tvUserScore.setText("Your Score was " + uscore);
+        userScore = getIntent().getIntExtra("userScore",0);
+        userRound = getIntent().getIntExtra("userRound",0);
+
+        tvUserScore.setText("Your Score was " + userScore);
+        tvRound.setText("Got to round " + userRound);
     }
 
     public void doHighScores(View view) {

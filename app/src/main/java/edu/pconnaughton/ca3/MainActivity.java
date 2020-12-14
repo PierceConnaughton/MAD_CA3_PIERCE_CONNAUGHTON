@@ -16,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
     Handler handlerUI = new Handler();
     int[] sequence;
 
-    int userScore;
+    int userScore,userRound;
 
-    TextView tvUserScore;
+    TextView tvUserScore,tvRound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvUserScore = findViewById(R.id.tvScore);
+        tvRound = findViewById(R.id.tvRound);
 
         btnOne = findViewById(R.id.btnFirstColor);
         btnTwo = findViewById(R.id.btnSecondColor);
@@ -33,10 +34,14 @@ public class MainActivity extends AppCompatActivity {
         btnFour = findViewById(R.id.btnFourthColor);
 
         userScore = 0;
+        userRound = 0;
 
         userScore = getIntent().getIntExtra("userScore",0);
 
+        userRound = getIntent().getIntExtra("userRound",1);
+
         tvUserScore.setText("Your Score was " + userScore);
+        tvRound.setText("Round " + userRound);
     }
 
     public void doPlay(View view) throws InterruptedException {
@@ -95,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
                     gameStartActivity.putExtra("sequence", sequence);
                     gameStartActivity.putExtra("userScore", userScore);
-
+                    gameStartActivity.putExtra("userRound", userRound);
 
                     startActivity(gameStartActivity);
 
@@ -146,6 +151,7 @@ public class MainActivity extends AppCompatActivity {
             final Intent gameStartActivity = new Intent(view.getContext(), GameStartActivity.class);
 
             gameStartActivity.putExtra("sequence", sequence);
+            gameStartActivity.putExtra("userRound", userRound);
 
             handlerUI.postDelayed(new Runnable() {
                 @Override
