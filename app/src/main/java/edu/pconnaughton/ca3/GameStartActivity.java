@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public class GameStartActivity extends AppCompatActivity {
 
     Button btnOne, btnTwo, btnThree, btnFour;
-    int userNum,sequenceNum;
+    int userNum,sequenceNum,userScore,lastNum;
 
-    int[] usequence;
+    int[] usequence = new int[20];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,22 @@ public class GameStartActivity extends AppCompatActivity {
         btnFour = findViewById(R.id.btnFourthColor);
 
         userNum = 0;
-
+        userScore = 0;
         sequenceNum = 0;
+        lastNum = 0;
 
-        for (int i=0; i<4; i++) {
-            System.out.println(usequence[i]);
+        userScore = getIntent().getIntExtra("userScore",0);
+
+
+        System.out.println("========");
+
+        for (int x: usequence) {
+
+            System.out.println(x);
+
+            if(x != 0){
+                lastNum++;
+            }
         }
     }
 
@@ -64,26 +75,35 @@ public class GameStartActivity extends AppCompatActivity {
 
         if(userNum == usequence[sequenceNum]){
             Toast.makeText(this,"Correct",Toast.LENGTH_SHORT).show();
+            userScore++;
         }
         else{
 
             Toast.makeText(this,"Wrong",Toast.LENGTH_SHORT).show();
 
-        Intent gameOverStartActivity = new Intent(view.getContext(), GameOverActivity.class);
+            Intent gameOverStartActivity = new Intent(view.getContext(), GameOverActivity.class);
+
+            gameOverStartActivity.putExtra("userScore", userScore);
 
         startActivity(gameOverStartActivity);
+
+            userScore = 0;
         finish();
         }
 
         sequenceNum++;
 
-        if(sequenceNum == 4){
+        if(sequenceNum == lastNum && userNum == usequence[lastNum - 1]){
+
+            Intent mainActivity = new Intent(view.getContext(), MainActivity.class);
+
+            mainActivity.putExtra("userScore", userScore);
+
+            mainActivity.putExtra("sequence", usequence);
+
+            startActivity(mainActivity);
 
             Toast.makeText(this,"Got All 4 Correct",Toast.LENGTH_SHORT).show();
-
-            Intent gameOverStartActivity = new Intent(view.getContext(), GameOverActivity.class);
-
-            startActivity(gameOverStartActivity);
             finish();
         }
 

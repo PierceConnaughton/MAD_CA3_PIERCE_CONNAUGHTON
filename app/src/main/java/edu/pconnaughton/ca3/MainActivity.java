@@ -7,72 +7,154 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     Button btnOne, btnTwo, btnThree, btnFour;
     Handler handlerUI = new Handler();
-    int[] sequence = new int[4];
+    int[] sequence;
+
+    int userScore;
+
+    TextView tvUserScore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tvUserScore = findViewById(R.id.tvScore);
+
         btnOne = findViewById(R.id.btnFirstColor);
         btnTwo = findViewById(R.id.btnSecondColor);
         btnThree = findViewById(R.id.btnThirdColor);
         btnFour = findViewById(R.id.btnFourthColor);
+
+        userScore = 0;
+
+        userScore = getIntent().getIntExtra("userScore",0);
+
+        tvUserScore.setText("Your Score was " + userScore);
     }
 
     public void doPlay(View view) throws InterruptedException {
 
+        //array of 20
+        sequence = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+
+        int z = 0;
+        int nextFourNum = 0;
+
         int x;
 
-        for (int i=0; i<4; i++) {
+        if (userScore >= 4) {
 
-            x  = getRandomNumber();
+            Intent intent = getIntent();
 
-            sequence[i] = x;
+            sequence = intent.getIntArrayExtra("sequence");
 
-            System.out.println(sequence[i]);
+            for (int y : sequence) {
 
-            switch (x) {
-                case 1:
-                    setBtnClicked(btnOne);
+                if (y == 0) {
 
-                    break;
+                    for (int m = z; m < z + 4; m++) {
+                        x = getRandomNumber();
 
-                case 2:
-                    setBtnClicked(btnFour);
+                        sequence[m] = x;
 
-                    break;
+                        System.out.println(sequence[m]);
 
-                case 3:
-                    setBtnClicked(btnThree);
+                        switch (x) {
+                            case 1:
+                                setBtnClicked(btnOne);
 
-                    break;
+                                break;
 
-                case 4:
-                    setBtnClicked(btnFour);
+                            case 2:
+                                setBtnClicked(btnFour);
 
-                    break;
+                                break;
+
+                            case 3:
+                                setBtnClicked(btnThree);
+
+                                break;
+
+                            case 4:
+                                setBtnClicked(btnFour);
+
+                                break;
+                        }
+
+
+                    }
+
+                    Intent gameStartActivity = new Intent(view.getContext(), GameStartActivity.class);
+
+                    gameStartActivity.putExtra("sequence", sequence);
+                    gameStartActivity.putExtra("userScore", userScore);
+
+
+                    startActivity(gameStartActivity);
+
+                    finish();
+
+                    return;
+
+
+                }
+                z++;
             }
-        }
+
+
+
+        } else {
+            for (int i = 0; i < 4; i++) {
+
+                x = getRandomNumber();
+
+                sequence[i] = x;
+
+                System.out.println(sequence[i]);
+
+                switch (x) {
+                    case 1:
+                        setBtnClicked(btnOne);
+
+                        break;
+
+                    case 2:
+                        setBtnClicked(btnFour);
+
+                        break;
+
+                    case 3:
+                        setBtnClicked(btnThree);
+
+                        break;
+
+                    case 4:
+                        setBtnClicked(btnFour);
+
+                        break;
+                }
+            }
 
 
             final Intent gameStartActivity = new Intent(view.getContext(), GameStartActivity.class);
 
             gameStartActivity.putExtra("sequence", sequence);
 
-        handlerUI.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                startActivity(gameStartActivity);
-            }
-        }, 2000);
+            handlerUI.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    startActivity(gameStartActivity);
+                }
+            }, 2000);
         }
+    }
 
 
 
