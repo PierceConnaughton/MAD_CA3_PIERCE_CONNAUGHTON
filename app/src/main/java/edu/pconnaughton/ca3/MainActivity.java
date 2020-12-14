@@ -102,7 +102,9 @@ public class MainActivity extends AppCompatActivity {
                     gameStartActivity.putExtra("userScore", userScore);
                     gameStartActivity.putExtra("userRound", userRound);
 
-                    startActivity(gameStartActivity);
+
+                            startActivity(gameStartActivity);
+
 
                     finish();
 
@@ -153,12 +155,11 @@ public class MainActivity extends AppCompatActivity {
             gameStartActivity.putExtra("sequence", sequence);
             gameStartActivity.putExtra("userRound", userRound);
 
-            handlerUI.postDelayed(new Runnable() {
-                @Override
-                public void run() {
+
                     startActivity(gameStartActivity);
-                }
-            }, 2000);
+
+
+            finish();
         }
     }
 

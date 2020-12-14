@@ -60,8 +60,6 @@ public class GameStartActivity extends AppCompatActivity {
     }
 
     public void doBtnClick(View view) {
-
-
         switch (view.getId()){
             case R.id.btnFirstColor:
                 userNum = 1;
