@@ -116,26 +116,26 @@ public class GameOverActivity extends AppCompatActivity {
         List<HiScore> top5HiScores = db.getTopFiveScores();
         HiScore lastScore = top5HiScores.get(top5HiScores.size() - 1);
 
-        if(userScore > lastScore.score){
-            ArrayAdapter<HiScore> adapter = new ArrayAdapter<HiScore>(this,
-                    android.R.layout.simple_list_item_1, top5HiScores);
+        if(userScore > lastScore.score && userText.getText().toString() != ""){
 
-            datasource.deleteHiScore(lastScore);
-            adapter.remove(lastScore);
-
-            HiScore hiScore = null;
             String userName = userText.getText().toString();
 
             String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
-            hiScore.score = userScore;
-            hiScore.player_name = userName;
-            hiScore.game_date = date;
+            db.addHiScore(new HiScore(date, userName, userScore));
 
-            datasource.addHiScore(hiScore);
-            adapter.add(hiScore);
+            top5HiScores = db.getTopFiveScores();
 
+            for (HiScore hs : top5HiScores) {
+                String log =
+                        "Id: " + hs.getScore_id() +
+                                ", Date: " + hs.getGame_date() +
+                                " , Player: " + hs.getPlayer_name() +
+                                " , Score: " + hs.getScore();
 
+                // Writing HiScore to log
+                Log.i("Score: ", log);
+            }
 
         }
         else{

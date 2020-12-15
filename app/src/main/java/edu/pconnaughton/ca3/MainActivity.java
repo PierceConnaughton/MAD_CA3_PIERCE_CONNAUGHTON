@@ -56,15 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (userScore >= 4) {
 
-            Intent intent = getIntent();
-
-            sequence = intent.getIntArrayExtra("sequence");
+            sequence = getIntent().getIntArrayExtra("sequence");
 
             for (int y : sequence) {
 
                 if (y == 0) {
 
-                    for (int m = z; m < z + 4; m++) {
+                    for (int m = z; m < z + 2; m++) {
                         x = getRandomNumber();
 
                         sequence[m] = x;

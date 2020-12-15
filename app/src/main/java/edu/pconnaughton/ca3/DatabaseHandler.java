@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.pconnaughton.ca3.HiScore;
+
 /*
  * Class has create / drop table and CRUD ops for table
  */
@@ -179,4 +181,3 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 }
-

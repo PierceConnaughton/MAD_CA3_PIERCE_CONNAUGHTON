@@ -5,4 +5,5 @@
     <string name="Text_View">TextView</string>
     <string name="Play">Play</string>
     <string name="Game_Over">Game Over...</string>
+    <string name="Rotate">Rotate phone to landscape to play</string>
 </resources>

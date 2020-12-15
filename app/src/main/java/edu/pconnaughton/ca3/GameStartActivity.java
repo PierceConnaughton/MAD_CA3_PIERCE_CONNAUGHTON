@@ -3,6 +3,9 @@ package edu.pconnaughton.ca3;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,7 +14,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class GameStartActivity extends AppCompatActivity {
+public class GameStartActivity extends AppCompatActivity implements SensorEventListener {
 
     Button btnOne, btnTwo, btnThree, btnFour;
     int userNum,sequenceNum,userScore,lastNum,userRound;
@@ -133,6 +136,16 @@ public class GameStartActivity extends AppCompatActivity {
             finish();
         }
 
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
 }
