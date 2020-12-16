@@ -67,4 +67,12 @@ public class HiScore {
     public void setScore(int score) {
         this.score = score;
     }
+
+
+
+    @Override
+    public String toString() {
+        String result = String.format("%-30s%-30s%-30s\n",player_name,score,game_date);
+        return result;
+    }
 }

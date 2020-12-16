@@ -120,7 +120,7 @@ public class GameOverActivity extends AppCompatActivity {
 
             String userName = userText.getText().toString();
 
-            String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+            String date = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
             db.addHiScore(new HiScore(date, userName, userScore));
 
@@ -146,14 +146,14 @@ public class GameOverActivity extends AppCompatActivity {
     public void InsertingData(){
         // Inserting hi scores
         Log.i("Insert: ", "Inserting ..");
-        db.addHiScore(new HiScore("20 OCT 2020", "Frodo", 1));
-        db.addHiScore(new HiScore("28 OCT 2020", "Dobby", 1));
-        db.addHiScore(new HiScore("20 NOV 2020", "DarthV", 1));
-        db.addHiScore(new HiScore("20 NOV 2020", "Bob", 1));
-        db.addHiScore(new HiScore("22 NOV 2020", "Gemma", 1));
-        db.addHiScore(new HiScore("30 NOV 2020", "Joe", 9));
-        db.addHiScore(new HiScore("01 DEC 2020", "DarthV", 1));
-        db.addHiScore(new HiScore("02 DEC 2020", "Gandalf", 132));
+        db.addHiScore(new HiScore("20/9/2020", "Frodo", 1));
+        db.addHiScore(new HiScore("28/9/2020", "Dobby", 1));
+        db.addHiScore(new HiScore("20/11/2020", "DarthV", 1));
+        db.addHiScore(new HiScore("21/11/2020", "Bob", 1));
+        db.addHiScore(new HiScore("14/12/2020", "Gemma", 1));
+        db.addHiScore(new HiScore("14/12/2020", "Joe", 9));
+        db.addHiScore(new HiScore("15/12/2020", "DarthV", 1));
+        db.addHiScore(new HiScore("16/12/2020", "Gandalf", 132));
 
     }
 }

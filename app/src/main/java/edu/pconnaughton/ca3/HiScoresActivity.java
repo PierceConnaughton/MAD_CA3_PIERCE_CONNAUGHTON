@@ -7,8 +7,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.app.ListActivity;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Comment;
 
@@ -17,30 +20,27 @@ import java.util.List;
 
 public class HiScoresActivity extends ListActivity {
 
-
+    private DatabaseHandler datasource;
+    TextView tvListHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hi_scores);
 
-        DatabaseHandler db = new DatabaseHandler(this);
+        tvListHeader = findViewById(R.id.tvListHeader);
 
-        //Intent i = getIntent();
-        //db = (DatabaseHandler) i.getParcelableExtra("database");
+        String result = String.format("%-30s%-30s%-30s\n","Player Name","Score","Date Played");
 
-//        ArrayAdapter adapter = new ArrayAdapter<String>(this,
-//                R.layout.activity_hi_scores, logs);
-//
-//
-//       setListAdapter(adapter);
+        tvListHeader.setText(result);
+        datasource = new DatabaseHandler(this);
 
+        List<HiScore> values = datasource.getTopFiveScores();
 
-
-        List<HiScore> top5HiScores = db.getTopFiveScores();
-
+        // use the SimpleCursorAdapter to show the
+        // elements in a ListView
         ArrayAdapter<HiScore> adapter = new ArrayAdapter<HiScore>(this,
-                android.R.layout.simple_list_item_1, top5HiScores);
+                android.R.layout.simple_list_item_1, values);
         setListAdapter(adapter);
     }
 
