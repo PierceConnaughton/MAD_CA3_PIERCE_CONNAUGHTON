@@ -19,7 +19,8 @@ import java.util.ArrayList;
 public class GameStartActivity extends AppCompatActivity implements SensorEventListener {
 
     Button btnOne, btnTwo, btnThree, btnFour;
-    int userNum,sequenceNum,userScore,lastNum,userRound;
+
+    int userNum,sequenceNum,userScore,lastNum,userRound,arrayIndex;
 
     int[] usequence = new int[20];
 
@@ -70,6 +71,7 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
 
         userScore = getIntent().getIntExtra("userScore",0);
         userRound = getIntent().getIntExtra("userRound",1);
+        arrayIndex = getIntent().getIntExtra("arrayIndex",0);
 
         tvRound.setText("Round " + userRound);
 
@@ -297,6 +299,8 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
             mainActivity.putExtra("userScore", userScore);
 
             mainActivity.putExtra("sequence", usequence);
+
+            mainActivity.putExtra("arrayIndex",arrayIndex);
 
             userRound++;
 

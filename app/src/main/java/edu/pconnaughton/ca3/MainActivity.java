@@ -2,9 +2,12 @@ package edu.pconnaughton.ca3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,11 +17,92 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnOne, btnTwo, btnThree, btnFour;
     Handler handlerUI = new Handler();
-    int[] sequence;
+    int[] sequence = new int[20];
+
+    private final int BLUE = 1;
+    private final int RED = 2;
+    private final int YELLOW = 3;
+    private final int GREEN = 4;
+
+
+    int sequenceCount = 4, n = 0;
+
+    private Object mutex = new Object();
+    int arrayIndex = 0;
+
+    View doPlayView;
 
     int userScore,userRound;
 
     TextView tvUserScore,tvRound;
+
+    CountDownTimer ct = new CountDownTimer(6000,  1250) {
+
+        public void onTick(long millisUntilFinished) {
+            //mTextField.setText("seconds remaining: " + millisUntilFinished / 1500);
+            oneButton();
+            //here you can have your logic to set text to edittext
+        }
+
+        public void onFinish() {
+            //mTextField.setText("done!");
+            // we now have the game sequence
+
+            for (int i = 0; i < arrayIndex; i++) {
+
+                System.out.println(sequence[i]);
+
+            }
+
+            System.out.println("====");
+
+            Activity mainActivity = new MainActivity();
+
+            Intent gameStartActivity = new Intent(doPlayView.getContext(), GameStartActivity.class);
+
+            gameStartActivity.putExtra("sequence", sequence);
+            gameStartActivity.putExtra("userScore", userScore);
+            gameStartActivity.putExtra("arrayIndex", arrayIndex);
+            gameStartActivity.putExtra("userRound", userRound);
+
+
+            startActivity(gameStartActivity);
+
+        };
+    };
+
+    CountDownTimer ct2 = new CountDownTimer(6000,  2500) {
+
+        public void onTick(long millisUntilFinished) {
+            //mTextField.setText("seconds remaining: " + millisUntilFinished / 1500);
+            oneButton();
+            //here you can have your logic to set text to edittext
+        }
+
+        public void onFinish() {
+            //mTextField.setText("done!");
+            // we now have the game sequence
+
+            for (int i = 0; i < arrayIndex; i++) {
+
+                System.out.println(sequence[i]);
+            }
+
+            System.out.println("====");
+
+            Activity mainActivity = new MainActivity();
+
+            Intent gameStartActivity = new Intent(doPlayView.getContext(), GameStartActivity.class);
+
+            gameStartActivity.putExtra("sequence", sequence);
+            gameStartActivity.putExtra("userScore", userScore);
+            gameStartActivity.putExtra("arrayIndex", arrayIndex);
+            gameStartActivity.putExtra("userRound", userRound);
+
+
+            startActivity(gameStartActivity);
+        };
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,129 +120,57 @@ public class MainActivity extends AppCompatActivity {
         userScore = 0;
         userRound = 0;
 
-        userScore = getIntent().getIntExtra("userScore",0);
+        userScore = getIntent().getIntExtra("userScore", 0);
 
-        userRound = getIntent().getIntExtra("userRound",1);
+        userRound = getIntent().getIntExtra("userRound", 1);
+
+        arrayIndex = getIntent().getIntExtra("arrayIndex", 0);
+
+        sequence = getIntent().getIntArrayExtra("sequence");
 
         tvUserScore.setText("Your Score was " + userScore);
         tvRound.setText("Round " + userRound);
+
+
+
     }
 
     public void doPlay(View view) throws InterruptedException {
-
-        //array of 20
-        sequence = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-
-        int z = 0;
-        int nextFourNum = 0;
-
-        int x;
-
-        if (userScore >= 4) {
-
-            sequence = getIntent().getIntArrayExtra("sequence");
-
-            for (int y : sequence) {
-
-                if (y == 0) {
-
-                    for (int m = z; m < z + 2; m++) {
-                        x = getRandomNumber();
-
-                        sequence[m] = x;
-
-                        System.out.println(sequence[m]);
-
-                        switch (x) {
-                            case 1:
-                                setBtnClicked(btnOne);
-
-                                break;
-
-                            case 2:
-                                setBtnClicked(btnFour);
-
-                                break;
-
-                            case 3:
-                                setBtnClicked(btnThree);
-
-                                break;
-
-                            case 4:
-                                setBtnClicked(btnFour);
-
-                                break;
-                        }
-
-
-                    }
-
-                    Intent gameStartActivity = new Intent(view.getContext(), GameStartActivity.class);
-
-                    gameStartActivity.putExtra("sequence", sequence);
-                    gameStartActivity.putExtra("userScore", userScore);
-                    gameStartActivity.putExtra("userRound", userRound);
-
-
-                            startActivity(gameStartActivity);
-
-
-                    finish();
-
-                    return;
-
-
-                }
-                z++;
-            }
-
-
-
-        } else {
-            for (int i = 0; i < 4; i++) {
-
-                x = getRandomNumber();
-
-                sequence[i] = x;
-
-                System.out.println(sequence[i]);
-
-                switch (x) {
-                    case 1:
-                        setBtnClicked(btnOne);
-
-                        break;
-
-                    case 2:
-                        setBtnClicked(btnFour);
-
-                        break;
-
-                    case 3:
-                        setBtnClicked(btnThree);
-
-                        break;
-
-                    case 4:
-                        setBtnClicked(btnFour);
-
-                        break;
-                }
-            }
-
-
-            final Intent gameStartActivity = new Intent(view.getContext(), GameStartActivity.class);
-
-            gameStartActivity.putExtra("sequence", sequence);
-            gameStartActivity.putExtra("userRound", userRound);
-
-
-                    startActivity(gameStartActivity);
-
-
-            finish();
+        doPlayView = view;
+        if(arrayIndex <= 3){
+            sequence = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            ct.start();
         }
+        else{
+            ct2.start();
+        }
+    }
+
+    public void oneButton(){
+        n = getRandomNumber();
+
+        Toast.makeText(this, "Number = " + n, Toast.LENGTH_SHORT).show();
+
+        switch (n) {
+            case 1:
+                setBtnClicked(btnOne);
+                sequence[arrayIndex++] = BLUE;
+                break;
+            case 2:
+                setBtnClicked(btnTwo);
+                sequence[arrayIndex++] = RED;
+                break;
+            case 3:
+                setBtnClicked(btnThree);
+                sequence[arrayIndex++] = YELLOW;
+                break;
+            case 4:
+                setBtnClicked(btnFour);
+                sequence[arrayIndex++] = GREEN;
+                break;
+            default:
+                break;
+        }   // end switch
     }
 
 
