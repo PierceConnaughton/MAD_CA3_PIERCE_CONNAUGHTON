@@ -24,7 +24,7 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
 
     int[] usequence = new int[20];
 
-    TextView tvRound;
+    TextView tvRound,tvScore;
 
     private final double NORTH_MOVE_FORWARD = 9.0;     // upper mag limit
     private final double NORTH_MOVE_BACKWARD = 7.0;      // lower mag limit
@@ -53,6 +53,7 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
         setContentView(R.layout.activity_game_start);
 
         tvRound = findViewById(R.id.tvRound);
+        tvScore = findViewById(R.id.tvScore);
 
         Intent intent = getIntent();
 
@@ -74,6 +75,7 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
         arrayIndex = getIntent().getIntExtra("arrayIndex",0);
 
         tvRound.setText("Round " + userRound);
+        tvScore.setText("Score " + userScore);
 
         System.out.println("========");
 
@@ -257,12 +259,13 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
     public void CheckUserValue(View view){
 
         if(userNum == usequence[sequenceNum]){
-            Toast.makeText(this,"Correct",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Correct",Toast.LENGTH_SHORT).show();
             userScore++;
+            tvScore.setText("Score " + userScore);
         }
         else{
 
-            Toast.makeText(this,"Wrong",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Wrong",Toast.LENGTH_SHORT).show();
 
             Intent gameOverStartActivity = new Intent(view.getContext(), GameOverActivity.class);
 
@@ -277,8 +280,8 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
         }
 
         sequenceNum++;
-        if(sequenceNum == 20 && userNum == usequence[19]) {
-            Toast.makeText(this,"Got all correct",Toast.LENGTH_SHORT).show();
+        if(sequenceNum == 40 && userNum == usequence[39]) {
+            //Toast.makeText(this,"Got all correct",Toast.LENGTH_SHORT).show();
 
             Intent gameOverStartActivity = new Intent(view.getContext(), GameOverActivity.class);
 
@@ -308,7 +311,7 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
 
             startActivity(mainActivity);
 
-            Toast.makeText(this,"Round Complete",Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this,"Round Complete",Toast.LENGTH_SHORT).show();
             finish();
         }
     }

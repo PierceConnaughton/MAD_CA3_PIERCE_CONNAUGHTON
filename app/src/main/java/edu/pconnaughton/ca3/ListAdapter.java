@@ -4,76 +4,36 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import edu.pconnaughton.ca3.R;
+import java.util.ArrayList;
 
-public class ListAdapter extends BaseAdapter {
+import edu.pconnaughton.ca3.HiScore;
 
-    private Context context;
-    private HiScore hiScores[] = new HiScore[] {};
-
-    public ListAdapter (Context context, HiScore hiScores[]) {
-
-        this.context = context;
-        this.hiScores = hiScores;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return getCount();
-    }
-    @Override
-    public int getItemViewType(int position) {
-
-        return position;
-    }
-
-    @Override
-    public int getCount() {
-        return hiScores.length;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return hiScores[position];
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
+class UsersAdapter extends ArrayAdapter<HiScore> {
+    public UsersAdapter(Context context, ArrayList<HiScore> users) {
+        super(context, 0, users);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
-
+        // Get the data item for this position
+        HiScore user = getItem(position);
+        // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-            holder = new ViewHolder();
-            LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = inflater.inflate(R.layout.listview_item, null, true);
-
-            holder.tvProduct = (TextView) convertView.findViewById(R.id.tv);
-
-            convertView.setTag(holder);
-        }else {
-            // the getTag returns the viewHolder object set as a tag to the view
-            holder = (ViewHolder)convertView.getTag();
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.listview_item, parent, false);
         }
-
-        String result = String.format("%-30s%-30s%-30s\n",hiScores[position].player_name,hiScores[position].score,hiScores[position].game_date);
-
-        holder.tvProduct.setText(result);
-
+        // Lookup view for data population
+        TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
+        TextView tvScore = (TextView) convertView.findViewById(R.id.tvScore);
+        TextView tvDate = (TextView) convertView.findViewById(R.id.tvDate);
+        // Populate the data into the template view using the data object
+        tvName.setText(user.player_name);
+        tvScore.setText(user.score);
+        tvDate.setText(user.game_date);
+        // Return the completed view to render on screen
         return convertView;
     }
-
-    private class ViewHolder {
-
-        protected TextView tvProduct;
-
-    }
-
 }

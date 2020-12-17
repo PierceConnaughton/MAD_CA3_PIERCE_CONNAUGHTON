@@ -17,13 +17,12 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnOne, btnTwo, btnThree, btnFour;
     Handler handlerUI = new Handler();
-    int[] sequence = new int[20];
+    int[] sequence = new int[40];
 
     private final int BLUE = 1;
     private final int RED = 2;
     private final int YELLOW = 3;
     private final int GREEN = 4;
-
 
     int sequenceCount = 4, n = 0;
 
@@ -67,11 +66,12 @@ public class MainActivity extends AppCompatActivity {
 
 
             startActivity(gameStartActivity);
+            finish();
 
         };
     };
 
-    CountDownTimer ct2 = new CountDownTimer(6000,  2500) {
+    CountDownTimer ct2 = new CountDownTimer(5000,  2000) {
 
         public void onTick(long millisUntilFinished) {
             //mTextField.setText("seconds remaining: " + millisUntilFinished / 1500);
@@ -101,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
 
             startActivity(gameStartActivity);
+
+            finish();
         };
     };
 
@@ -128,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         sequence = getIntent().getIntArrayExtra("sequence");
 
-        tvUserScore.setText("Your Score was " + userScore);
+        tvUserScore.setText("Score " + userScore);
         tvRound.setText("Round " + userRound);
 
 
@@ -138,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
     public void doPlay(View view) throws InterruptedException {
         doPlayView = view;
         if(arrayIndex <= 3){
-            sequence = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            sequence = new int[] {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
             ct.start();
         }
         else{
@@ -149,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
     public void oneButton(){
         n = getRandomNumber();
 
-        Toast.makeText(this, "Number = " + n, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Number = " + n, Toast.LENGTH_SHORT).show();
 
         switch (n) {
             case 1:

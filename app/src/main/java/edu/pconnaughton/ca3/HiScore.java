@@ -72,7 +72,7 @@ public class HiScore {
 
     @Override
     public String toString() {
-        String result = String.format("%-30s%-30s%-30s\n",player_name,score,game_date);
+        String result = String.format("%-55s%-50s%-50s\n",player_name,score,game_date);
         return result;
     }
 }

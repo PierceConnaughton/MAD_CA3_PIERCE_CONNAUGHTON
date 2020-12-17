@@ -30,7 +30,7 @@ public class HiScoresActivity extends ListActivity {
 
         tvListHeader = findViewById(R.id.tvListHeader);
 
-        String result = String.format("%-30s%-30s%-30s\n","Player Name","Score","Date Played");
+        String result = String.format("%-50s%-50s%-50s\n","Player Name","Score","Date Played");
 
         tvListHeader.setText(result);
         datasource = new DatabaseHandler(this);

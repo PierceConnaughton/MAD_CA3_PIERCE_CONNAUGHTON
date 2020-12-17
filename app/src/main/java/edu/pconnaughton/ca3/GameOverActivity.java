@@ -93,7 +93,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         HiScore lastScore = top5HiScores.get(top5HiScores.size() - 1);
         if (userScore > lastScore.score) {
-            Toast.makeText(this,"Enter Score", Toast.LENGTH_LONG).show();
+            Toast.makeText(this,"Enter name to database?", Toast.LENGTH_LONG).show();
         }
     }
 

@@ -4,7 +4,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/Black"
+    >
 
     <LinearLayout
         android:id="@+id/group2"
@@ -17,7 +19,8 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/aldrich"
             android:onClick="doPlayAgain"
-            android:text="@string/High_Scores" />
+            android:text="@string/High_Scores"
+            android:textColor="@color/White"/>
 
     </LinearLayout>
 
@@ -25,37 +28,44 @@
         android:id="@+id/tvListHeader"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+
         android:background="@color/colorAccent"
         android:fontFamily="@font/aldrich"
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/Text_View"
-        android:textColor="#fff"
+        android:textColor="@color/White"
         android:textSize="15dp"
         android:textStyle="bold" />
 
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/aldrich"/>
+        android:layout_height="225dp"
+        android:background="@color/White"
+        android:fontFamily="@font/aldrich"
+
+        />
 
     <LinearLayout
         android:id="@+id/group"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
-
-        <Button
-            android:id="@+id/btnPlayAgain"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Play_Again"
-            android:onClick="doPlayAgain"
-            android:layout_marginLeft="550dp"
-            android:fontFamily="@font/aldrich"
-            android:background="@drawable/rounded_corners_button"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnPlayAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginLeft="550dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/rounded_corners_button"
+        android:fontFamily="@font/aldrich"
+        android:onClick="doPlayAgain"
+        android:textColor="@color/Black"
+        android:text="@string/Play_Again" />
 
 </LinearLayout>
