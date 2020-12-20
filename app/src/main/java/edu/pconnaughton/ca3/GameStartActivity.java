@@ -22,7 +22,7 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
 
     int userNum,sequenceNum,userScore,lastNum,userRound,arrayIndex;
 
-    int[] usequence = new int[20];
+    int[] usequence = new int[40];
 
     TextView tvRound,tvScore;
 

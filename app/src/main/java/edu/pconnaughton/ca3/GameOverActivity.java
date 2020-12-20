@@ -147,7 +147,7 @@ public class GameOverActivity extends AppCompatActivity {
         // Inserting hi scores
         Log.i("Insert: ", "Inserting ..");
         db.addHiScore(new HiScore("20/9/2020", "Donna", 14));
-        db.addHiScore(new HiScore("28/9/2020", "Bobby", 19));
+        db.addHiScore(new HiScore("28/9/2020", "Bobby", 16));
         db.addHiScore(new HiScore("20/11/2020", "Leo", 4));
         db.addHiScore(new HiScore("21/11/2020", "Bob", 28));
         db.addHiScore(new HiScore("14/12/2020", "Mike", 25));
