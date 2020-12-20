@@ -146,14 +146,14 @@ public class GameOverActivity extends AppCompatActivity {
     public void InsertingData(){
         // Inserting hi scores
         Log.i("Insert: ", "Inserting ..");
-        db.addHiScore(new HiScore("20/9/2020", "Frodo", 1));
-        db.addHiScore(new HiScore("28/9/2020", "Dobby", 1));
-        db.addHiScore(new HiScore("20/11/2020", "DarthV", 1));
-        db.addHiScore(new HiScore("21/11/2020", "Bob", 1));
-        db.addHiScore(new HiScore("14/12/2020", "Gemma", 1));
-        db.addHiScore(new HiScore("14/12/2020", "Joe", 9));
-        db.addHiScore(new HiScore("15/12/2020", "DarthV", 1));
-        db.addHiScore(new HiScore("16/12/2020", "Gandalf", 132));
+        db.addHiScore(new HiScore("20/9/2020", "Donna", 14));
+        db.addHiScore(new HiScore("28/9/2020", "Bobby", 19));
+        db.addHiScore(new HiScore("20/11/2020", "Leo", 4));
+        db.addHiScore(new HiScore("21/11/2020", "Bob", 28));
+        db.addHiScore(new HiScore("14/12/2020", "Mike", 25));
+        db.addHiScore(new HiScore("14/12/2020", "Shelly", 12));
+        db.addHiScore(new HiScore("15/12/2020", "Harry T", 23));
+        db.addHiScore(new HiScore("16/12/2020", "Cooper", 30));
 
     }
 }

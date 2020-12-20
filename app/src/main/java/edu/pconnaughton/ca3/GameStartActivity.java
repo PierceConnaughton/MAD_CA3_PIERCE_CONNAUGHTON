@@ -38,9 +38,25 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
     private final double SOUTH_MOVE_FORWARD_MINUS = -9.0;     // upper mag limit
     private final double SOUTH_MOVE_BACKWARD_MINUS = -7.0; // lower mag limit
 
+
+    //look at z coordinates
+
+    private final double WEST_MOVE_FORWARD = -1;     // upper mag limit
+    private final double WEST_MOVE_BACKWARD = 0; // lower mag limit
+
+    private final double WEST_MOVE_FORWARD_MINUS = 1;     // upper mag limit
+    private final double WEST_MOVE_BACKWARD_MINUS = 0; // lower mag limit
+
+    private final double EAST_MOVE_FORWARD = 1;     // upper mag limit
+    private final double EAST_MOVE_BACKWARD = 0; // lower mag limit
+
+    private final double EAST_MOVE_FORWARD_MINUS = -1;     // upper mag limit
+    private final double EAST_MOVE_BACKWARD_MINUS = 0; // lower mag limit
+
     boolean detectNorth = false;      // detect high limit
     boolean detectSouth = false;      // detect high limit
-
+    boolean detectEast = false;      // detect high limit
+    boolean detectWest = false;      // detect high limit
 
     private SensorManager mSensorManager;
     private Sensor mSensor;
@@ -143,10 +159,12 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
 
         final Button btnNorth = findViewById(R.id.btnFirstColor);
         final Button btnSouth = findViewById(R.id.btnFourthColor);
-        Button btnEast = findViewById(R.id.btnThirdColor);
-        Button btnWest = findViewById(R.id.btnFourthColor);
+        final Button btnEast = findViewById(R.id.btnSecondColor);
+        final Button btnWest = findViewById(R.id.btnThirdColor);
         // Can we get a north movement
         // you need to do your own mag calculating
+
+        tvRound.setText(String.valueOf(y));
 
         //screen rotated to the left
         if(x > 0){
@@ -155,8 +173,6 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
             }
             if ((x < NORTH_MOVE_BACKWARD && z > 0) && (detectNorth == true)) {
                 // we have a tilt to the north
-
-
                 userNum = 1;
 
                 btnNorth.setPressed(true);
@@ -193,6 +209,48 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
 
                 detectSouth = false;
             }
+
+            if ( y > 1.5 && detectEast == false) {
+                detectEast = true;
+            }
+            if (y < 0.5 && detectEast == true) {
+                userNum = 2;
+
+                btnEast.setPressed(true);
+
+                handlerUI.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnEast.setPressed(false);
+                    }
+                }, 1000);
+
+                CheckUserValue(btnEast);
+
+                detectEast = false;
+            }
+
+            if (  y < -1.5 && detectWest == false) {
+                detectWest = true;
+            }
+            if ( y > -0.5 && detectWest == true) {
+                userNum = 3;
+
+                btnWest.setPressed(true);
+
+                handlerUI.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                       btnWest.setPressed(false);
+                    }
+                }, 1000);
+
+                CheckUserValue(btnWest);
+
+                detectWest = false;
+            }
+
+
         }
 
         //screen rotated to the right
@@ -237,6 +295,46 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
                 CheckUserValue(btnSouth);
 
                 detectSouth = false;
+            }
+
+            if ( y > WEST_MOVE_FORWARD_MINUS && detectWest == false) {
+                detectWest = true;
+            }
+            if ( y < WEST_MOVE_BACKWARD_MINUS && detectWest == true) {
+                userNum = 3;
+
+                btnWest.setPressed(true);
+
+                handlerUI.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnWest.setPressed(false);
+                    }
+                }, 1000);
+
+                CheckUserValue(btnWest);
+
+                detectWest = false;
+            }
+
+            if (y < EAST_MOVE_FORWARD_MINUS && detectEast == false) {
+                detectEast = true;
+            }
+            if(y > EAST_MOVE_BACKWARD_MINUS && detectEast == true) {
+                userNum = 4;
+
+                btnEast.setPressed(true);
+
+                handlerUI.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        btnEast.setPressed(false);
+                    }
+                }, 1000);
+
+                CheckUserValue(btnEast);
+
+                detectEast = false;
             }
         }
 
