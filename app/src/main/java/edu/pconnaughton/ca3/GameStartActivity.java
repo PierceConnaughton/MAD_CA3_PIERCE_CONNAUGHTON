@@ -164,8 +164,6 @@ public class GameStartActivity extends AppCompatActivity implements SensorEventL
         // Can we get a north movement
         // you need to do your own mag calculating
 
-        tvRound.setText(String.valueOf(y));
-
         //screen rotated to the left
         if(x > 0){
             if ((x > NORTH_MOVE_FORWARD && z > 0) && (detectNorth == false)) {
